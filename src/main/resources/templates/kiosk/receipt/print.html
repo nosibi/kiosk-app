@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>영수증 화면</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <style>
+        .kiosk-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+        }
+        .item-card {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        .item-table td {
+            padding: 6px 10px;
+        }
+        .pay-btn {
+            width: 150px;
+            height: 45px;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="kiosk-container">
+    <h2 class="text-center mb-4">영수증</h2>
+
+    <!-- 상품 반복 -->
+    <div th:each="item, stat : ${receipt.getItems()}" class="item-card">
+        <table class="item-table">
+            <tr>
+                <td>상품명</td>
+                <td th:text="${item.itemName}"></td>
+            </tr>
+            <tr>
+                <td>상품가격</td>
+                <td th:text="${item.itemPrice}"></td>
+            </tr>
+            <tr>
+                <td>주문 수량</td>
+                <td th:text="${item.quantity}"></td>
+            </tr>
+            <tr>
+                <td>얼음 추가</td>
+                <td th:text="${item.addIce} ? 'O(+500)' : 'X'"></td>
+            </tr>
+            <tr>
+                <td>샷 추가</td>
+                <td th:text="${item.addShot} ? 'O(+500)' : 'X'"></td>
+            </tr>
+            <tr>
+                <td>설탕 추가</td>
+                <td th:text="${item.addSugar} ? 'O(+500)' : 'X'"></td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <h2 th:text="'결제금액 : ' + ${receipt.getCost()}"></h2>
+    </div>
+    <div>
+        <h2 th:text="'대기번호 : ' + ${receipt.getWaitingNumber()}"></h2>
+    </div>
+
+    <!-- 결제 버튼 -->
+    <form th:action="@{/receipt/print}" method="post" class="text-center">
+        <button type="submit" class="btn btn-primary pay-btn">출력하기</button>
+    </form>
+</div>
+
+</body>
+
+</html>

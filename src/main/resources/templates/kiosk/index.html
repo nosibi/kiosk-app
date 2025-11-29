@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>시작 화면</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            background-color: #f8f9fa;
+        }
+        .kiosk-container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* 수직 중앙 */
+            align-items: center;     /* 수평 중앙 */
+            position: relative;
+        }
+        .button-group {
+            display: flex;
+            gap: 50px; /* 버튼 사이 간격 */
+        }
+        .kiosk-btn {
+            width: 220px;
+            height: 100px;
+            font-size: 1.5rem;
+        }
+        .member-btn {
+            position: absolute;
+            top: 20px;   /* 화면 위쪽에서 20px */
+            right: 20px; /* 화면 오른쪽에서 20px */
+        }
+        .admin-btn{
+            position: absolute;
+            top: 20px;   /* 화면 위쪽에서 20px */
+            right: 140px; /* 화면 오른쪽에서 20px */
+        }
+    </style>
+</head>
+<body>
+<div class="kiosk-container">
+
+    <!-- 관리자 버튼 -->
+    <a th:href="@{/admin/login}" class="btn btn-outline-primary admin-btn">
+        관리자
+    </a>
+
+    <!-- 회원 등록 버튼 -->
+    <a th:href="@{/member/register}" class="btn btn-outline-primary member-btn">
+        회원 등록
+    </a>
+
+    <!-- 상단 텍스트 -->
+    <h1 class="mb-5 fw-bold">어서오세요</h1>
+
+    <!-- 버튼 영역 -->
+    <form method="get" th:action="@{/kiosk/category}" class="button-group">
+        <button type="submit" name="takeOut" value=0 class="btn btn-primary kiosk-btn">
+            매장에서 먹기
+        </button>
+        <button type="submit" name="takeOut" value=1 class="btn btn-success kiosk-btn">
+            포장하기
+        </button>
+    </form>
+
+</div>
+</body>
+</html>

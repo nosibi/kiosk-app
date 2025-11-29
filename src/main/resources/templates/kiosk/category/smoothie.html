@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>카테고리 화면(스무디)</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .order-container {
+            width: 90%;
+            max-width: 900px;
+            background-color: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        /* --- 카테고리 영역 --- */
+        .category-group {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        .category-btn {
+            width: 100%;
+            height: 70px;
+            background-color: #f1f3f5;
+            border: none;
+            border-right: 2px solid #dee2e6;
+            font-size: 1.2rem;
+            transition: 0.2s;
+        }
+
+        .category-btn:last-child {
+            border-right: none;
+        }
+
+        .category-btn:hover {
+            background-color: #e9ecef;
+        }
+
+        /* --- 메뉴 버튼 영역 --- */
+        .button-group {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .kiosk-btn {
+            width: 180px;
+            height: 100px;
+            font-size: 1.2rem;
+            background-color: #fff3cd;
+            border: none;
+            border-radius: 10px;
+            transition: 0.2s;
+        }
+
+        .kiosk-btn:hover {
+            background-color: #ffe8a1;
+        }
+
+        /* --- 주문 버튼 --- */
+        .order-btn {
+            display: block;
+            margin: 0 auto;
+            width: 200px;
+            height: 50px;
+            font-size: 1.2rem;
+            background-color: #dfc2c4;
+            border: none;
+            border-radius: 10px;
+            transition: 0.2s;
+        }
+
+        .order-btn:hover {
+            background-color: #c9a6a8;
+        }
+    </style>
+</head>
+
+<body>
+<div class="order-container">
+    <!-- 홈으로 버튼 -->
+    <a th:href="@{/kiosk}" class="btn btn-outline-primary back-btn">홈으로</a>
+
+    <!-- 카테고리 제목 -->
+    <h1>스무디</h1>
+
+    <!-- 카테고리 버튼 영역 -->
+    <div class="category-group">
+        <form th:action="@{/menu/category/coffee}" method="get">
+            <button type="submit" class="category-btn">커피</button>
+        </form>
+        <form th:action="@{/menu/category/smoothie}" method="get">
+            <button type="submit" class="category-btn">스무디</button>
+        </form>
+        <form th:action="@{/menu/category/ade}" method="get">
+            <button type="submit" class="category-btn">에이드</button>
+        </form>
+        <form th:action="@{/menu/category/decaf}" method="get">
+            <button type="submit" class="category-btn">디카페인</button>
+        </form>
+    </div>
+
+    <!-- 메뉴 버튼 -->
+    <div class="button-group">
+
+        <form th:each="menu, stat : ${menus}" th:action="@{/menu/order}" method="post">
+            <input type="hidden" name="menuId" th:value="${menu.id}">
+            <button class="kiosk-btn" type="submit" th:text="${menu.name}"></button>
+        </form>
+
+    </div>
+
+    <!-- 주문하기 버튼 -->
+    <form th:action="@{/order/pay}" method="post">
+        <button class="order-btn" type="submit">주문하기</button>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>관리자 로그인 화면</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <style>
+        body {
+            display: flex;
+            align-items: center;           /* 수직 중앙 정렬 */
+            justify-content: center;       /* 수평 중앙 정렬 */
+            height: 100vh;                 /* 전체 화면 높이 */
+            background-color: #f8f9fa;     /* 밝은 배경색 */
+        }
+
+        .kiosk-container {
+            max-width: 400px;
+            width: 100%;
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .form-control {
+            height: 50px;
+            margin-bottom: 15px;
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 10px;                     /* 버튼 간 간격 */
+        }
+
+        .btn-row button {
+            flex: 1;                       /* 동일한 크기 */
+            height: 50px;
+        }
+        .home-btn{
+            position: absolute;
+            top: 20px;   /* 화면 위쪽에서 20px */
+            right: 20px; /* 화면 오른쪽에서 20px */
+        }
+        .field-error {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+
+<div class="kiosk-container">
+
+    <a th:href="@{/kiosk}" class="btn btn-outline-primary home-btn">홈으로</a>
+
+    <div class="text-center mb-4">
+        <h2>로그인</h2>
+    </div>
+
+    <form th:action="@{/admin/login}" th:object="${admin}" method="post">
+        <div th:if="${#fields.hasGlobalErrors()}">
+            <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+        </div>
+
+        <select class="form-control" th:field="*{adminLocation}">
+            <option value="">지점 선택</option>
+            <option value="연천점">연천점</option>
+            <option value="전곡점">전곡점</option>
+            <option value="지행점">지행점</option>
+            <option value="옥정점">옥정점</option>
+        </select>
+        <div>
+            <input type="text" th:field="*{loginID}" id="LoginID" class="form-control" placeholder="ID" >
+            <div class="field-error" th:errors="*{loginID}"></div>
+        </div>
+        <div>
+            <input type="password" th:field="*{password}" id="LoginPassword" class="form-control" placeholder="Password">
+            <div class="field-error" th:errors="*{password}"></div>
+        </div>
+
+        <hr class="my-4">
+
+        <div class="btn-row">
+            <button type="submit" class="btn btn-primary">로그인</button>
+            <button type="button" class="btn btn-secondary" th:onclick="|location.href='@{/kiosk}'|">취소</button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

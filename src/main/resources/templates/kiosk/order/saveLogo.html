@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>옵션 추가 완료</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            background-color: #f8f9fa;
+        }
+        .center-container {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .message-box {
+            text-align: center;
+            background-color: #fff;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .message-box h1 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+        }
+        .btn-return {
+            padding: 12px 24px;
+            font-size: 1.2rem;
+            border-radius: 8px;
+            background-color: #86b7fe;
+        }
+    </style>
+</head>
+<body>
+<div class="center-container">
+    <div class="message-box">
+        <h1>선택하신 옵션이 카트에 추가되었습니다</h1>
+        <form th:action="@{/menu/category/coffee}" method="get">
+            <button class="btn-return">주문화면으로 돌아가기</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>쿠폰 사용 선택 화면</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <style>
+        .center-container {
+            display: flex;
+            justify-content: center;  /* 가로 중앙 */
+            align-items: center;      /* 세로 중앙 */
+            height: 100vh;
+            text-align: center;
+            flex-direction: column;   /* 세로 정렬 */
+        }
+        .btn-group {
+            margin-top: 20px;
+        }
+        .btn {
+            width: 100px;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="center-container">
+    <h2>쿠폰을 사용하시겠습니까?</h2>
+    <div class="btn-group">
+        <form th:action="@{/coupon/select}" method="post" style="display:inline;">
+            <button type="submit" class="btn btn-success" name="isUsed" value="true">예</button>
+            <input type="hidden" name="count" value="1">
+        </form>
+        <form th:action="@{/coupon/select}" method="post" style="display:inline;">
+            <button type="submit" class="btn btn-danger" name="isUsed" value="false">아니오</button>
+            <input type="hidden" name="count" value="0">
+        </form>
+    </div>
+</div>
+</body>
+
+</html>

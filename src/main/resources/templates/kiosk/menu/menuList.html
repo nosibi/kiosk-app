@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>상품 리스트 화면</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <style>
+        .kiosk-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+        }
+        .item-card {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        .item-table td {
+            padding: 6px 10px;
+        }
+        .back-btn {
+            position: absolute;
+            top: 20px;   /* 화면 위쪽에서 20px */
+            right: 20px; /* 화면 오른쪽에서 20px */
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="kiosk-container">
+    <!-- 상품 관리 화면 복귀 버튼 -->
+    <a th:href="@{/menu/manage}" class="btn btn-outline-primary back-btn">
+        상품 관리 화면으로
+    </a>
+    <h2 class="text-center mb-4">상품 리스트</h2>
+
+    <!-- 상품 반복 -->
+    <div th:each="menu, stat : ${menus}" class="item-card">
+        <table class="item-table">
+
+            <tr>
+                <td>
+                    <div th:text="${stat.count} + '번째 상품'"></div>
+                    <div th:text="'ID : ' + ${menu.id}"></div>
+                    <div th:text="'상품명 : ' + ${menu.name}"></div>
+                    <div th:text="'가격 : ' + ${menu.price}"></div>
+                    <div th:text="'카테고리 : ' + ${menu.category}"></div>
+                    <div th:if="${menu.isSoldOut()}" th:text="'재고 소진'"></div>
+
+                    <div class="btn-row" style="display: flex; gap: 10px">
+                        <form th:action="@{/menu/update}" method="get">
+                            <input type="hidden" name="menuID" th:value="${menu.id}">
+                            <button type="submit" class="btn btn-primary">수정</button>
+                        </form>
+                        <form th:action="@{/menu/delete}" method="post">
+                            <input type="hidden" name="menuID" th:value="${menu.id}">
+                            <button type="submit" class="btn btn-secondary">삭제</button>
+                        </form>
+                    </div>
+
+                    <hr th:if="${!stat.last}" style="border: 1px solid #ddd; margin: 10px 0;">
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+</body>
+
+</html>

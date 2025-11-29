@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>상품 수정 화면</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <style>
+        body {
+            display: flex;
+            justify-content: center;   /* 가로 중앙 */
+            align-items: center;       /* 세로 중앙 */
+            height: 100vh;
+            background-color: #f8f9fa;
+            margin: 0;
+        }
+        .kiosk-container {
+            width: 400px;
+            padding: 40px;
+            border: 2px solid #ccc;
+            border-radius: 15px;
+            background-color: #fff;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            margin-bottom: 30px;
+        }
+        .form-control {
+            height: 50px;
+            margin-bottom: 15px;
+        }
+        .field-error{
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+        .back-btn {
+            position: absolute;
+            top: 20px;   /* 화면 위쪽에서 20px */
+            right: 20px; /* 화면 오른쪽에서 20px */
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="kiosk-container">
+
+    <!-- 회원 등록 버튼 -->
+    <a th:href="@{/menu/list}" class="btn btn-outline-primary back-btn">
+        이전으로
+    </a>
+
+    <h2>
+        수정하실 상품 정보를 입력하십시오
+    </h2>
+    <form th:action="@{/menu/update}" th:object="${menu}" method="post">
+        <div>
+            <p th:text="*{name}"></p>
+        </div>
+        <div>
+            <input type="hidden" name="menuID" th:value="*{id}">
+            <input class="form-control" name="price" th:value="*{price}" type="number" step="100" min="1000" max="6000" th:field="*{price}" placeholder="상품 가격">
+        </div>
+        <select class="form-control" name="soldOut" th:value="*{soldOut}" th:field="*{soldOut}" required>
+            <option value="true">재고소진 : O</option>
+            <option value="false">재고소진 : X</option>
+        </select>
+
+        <div class="btn-row">
+            <button type="submit" class="btn btn-primary">수정</button>
+        </div>
+    </form>
+</div>
+
+</body>
+
+</html>

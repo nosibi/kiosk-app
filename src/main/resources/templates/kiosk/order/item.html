@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>상품 상세 옵션 선택 화면</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <style>
+        .kiosk-container{
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+        }
+        body, html {
+            margin: 0;
+            background-color: #f8f9fa;
+        }
+        .option-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;  /* 옵션 간격 */
+        }
+        input[type="number"] {
+            width: 80px;
+            text-align: center;
+        }
+        .btn-submit {
+            width: 120px;
+            height: 40px;
+        }
+        .back-btn {
+            position: absolute;
+            top: 20px;   /* 화면 위쪽에서 20px */
+            right: 20px; /* 화면 오른쪽에서 20px */
+        }
+    </style>
+</head>
+
+<body>
+<div class="kiosk-container">
+    <!-- 카테고리 화면 복귀 버튼 -->
+    <a th:href="@{/order/back}" class="btn btn-outline-primary back-btn">
+        메뉴 선택화면으로
+    </a>
+    <div class="py-3 text-center">
+        <h1>상품 옵션 선택</h1>
+    </div>
+
+    <div class="mb-4">
+        <h2 th:text="${menu.name}">상품명</h2>
+    </div>
+    <div class="mb-4">
+        <span th:text="${menu.price}"></span>원
+    </div>
+
+    <!-- 폼 -->
+    <form th:action="@{/order/add}" method="post" th:object="${menu}">
+        <input type="hidden" name="menuId" th:value="${menu.id}">
+        <input type="hidden" name="menuName" th:value="${menu.name}">
+
+        <div class="option-row">
+            <label>얼음 추가(+500원)</label>
+            <input type="checkbox" name="addIce">
+        </div>
+        <div class="option-row">
+            <label>샷 추가(+500원)</label>
+            <input type="checkbox" name="addShot">
+        </div>
+        <div class="option-row">
+            <label>설탕 추가(+500원)</label>
+            <input type="checkbox" name="addSugar">
+        </div>
+        <div class="option-row">
+            <label>상품 수량</label>
+            <input type="number" name="quantity" value="1" min="1" max="30">
+        </div>
+
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary btn-submit">카트에 담기</button>
+        </div>
+    </form>
+
+
+    <hr class="my-4">
+</div>
+</body>
+
+</html>

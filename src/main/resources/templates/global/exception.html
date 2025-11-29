@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>예외 발생 시 출력 화면</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <style>
+        .kiosk-container{
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+        }
+        body, html {
+            margin: 0;
+            background-color: #f8f9fa;
+        }
+        input[type="number"] {
+            width: 80px;
+            text-align: center;
+        }
+        .back-btn {
+            position: absolute;
+            top: 20px;   /* 화면 위쪽에서 20px */
+            right: 20px; /* 화면 오른쪽에서 20px */
+        }
+    </style>
+</head>
+
+<body>
+<div class="kiosk-container">
+    <!-- 홈 화면 복귀 버튼 -->
+    <a th:href="@{/kiosk}" class="btn btn-outline-primary back-btn">
+        홈 화면으로
+    </a>
+    <div class="py-3 text-center">
+        <h1 th:text="${message}">에러 페이지</h1>
+    </div>
+
+
+    <hr class="my-4">
+</div>
+</body>
+
+</html>

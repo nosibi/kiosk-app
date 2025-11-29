@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>상품 등록 화면</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <style>
+        body {
+            display: flex;
+            justify-content: center;   /* 가로 중앙 */
+            align-items: center;       /* 세로 중앙 */
+            height: 100vh;
+            background-color: #f8f9fa;
+            margin: 0;
+        }
+
+        .kiosk-container {
+            width: 400px;
+            padding: 40px;
+            border: 2px solid #ccc;
+            border-radius: 15px;
+            background-color: #fff;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            margin-bottom: 30px;
+        }
+
+
+        .form-control {
+            height: 50px;
+            margin-bottom: 15px;
+        }
+
+        #phone {
+            width: 100%;
+            font-size: 24px;
+            padding: 15px;
+            text-align: center;
+            border: 2px solid #aaa;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .pay-btn {
+            font-size: 18px;
+            padding: 10px 0;
+            width: 50%;
+            border: none;
+            border-radius: 8px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        .pay-btn:hover {
+            background-color: #0056b3;
+        }
+        .field-error{
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+        .back-btn {
+            position: absolute;
+            top: 20px;   /* 화면 위쪽에서 20px */
+            right: 20px; /* 화면 오른쪽에서 20px */
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="kiosk-container">
+
+    <!-- 상품 관리 화면 복귀 버튼 -->
+    <a th:href="@{/menu/manage}" class="btn btn-outline-primary back-btn">
+        상품 관리 화면으로
+    </a>
+
+    <h2>
+        등록하실 상품 정보를 입력하십시오
+    </h2>
+    <form th:action="@{/menu/add}" th:object="${menu}" method="post">
+        <div th:if="${#fields.hasGlobalErrors()}">
+            <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+        </div>
+        <div>
+            <input class="form-control" type="text" th:field="*{name}" placeholder="상품명">
+            <div class="field-error" th:errors="*{name}"></div>
+        </div>
+        <div>
+            <input class="form-control" type="number" step="100" min="1000" max="6000" th:field="*{price}" placeholder="상품 가격">
+            <div class="field-error" th:errors="*{price}"></div>
+        </div>
+        <select class="form-control" th:field="*{category}" required>
+            <option value="">카테고리 선택</option>
+            <option value="커피">커피</option>
+            <option value="에이드">에이드</option>
+            <option value="스무디">스무디</option>
+            <option value="디카페인">디카페인</option>
+        </select>
+        <div class="field-error" th:errors="*{category}"></div>
+
+        <div class="btn-row">
+            <button type="submit" class="btn btn-primary">등록</button>
+        </div>
+    </form>
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>상품 등록 완료 화면</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            background-color: #f8f9fa;
+        }
+        .center-container {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .message-box {
+            text-align: center;
+            background-color: #fff;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .message-box h1 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+        }
+        .btn-return {
+            padding: 12px 24px;
+            font-size: 1.2rem;
+            border-radius: 8px;
+            background-color: #86b7fe;
+        }
+        .item-card {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+<div class="center-container">
+    <div class="message-box">
+        <h1>상품이 등록되었습니다</h1>
+        <div th:object="${menuResult}" class="item-card">
+            <table>
+                <tr>
+                    <td th:text="'상품명 : ' + *{name}">상품명</td>
+                </tr>
+                <tr>
+                    <td th:text="'상품 가격 : ' + *{price} + '원'">상품 가격</td>
+                </tr>
+                <tr>
+                    <td th:text="'카테고리 : ' + *{category}"></td>
+                </tr>
+                <tr>
+                    <td th:if="*{isSoldOut()}">재고 소진</td>
+                </tr>
+            </table>
+        </div>
+        <form th:action="@{/menu/manage}" method="get">
+            <button class="btn-return">상품 관리 페이지로 돌아가기</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

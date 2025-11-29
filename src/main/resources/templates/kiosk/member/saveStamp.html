@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>스탬프 적립 결과 화면</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <style>
+        body {
+            display: flex;
+            justify-content: center;   /* 가로 중앙 */
+            align-items: center;       /* 세로 중앙 */
+            height: 100vh;
+            background-color: #f8f9fa;
+            margin: 0;
+        }
+
+        .kiosk-container {
+            width: 480px;
+            padding: 40px;
+            border: 2px solid #ccc;
+            border-radius: 15px;
+            background-color: #fff;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            margin-bottom: 30px;
+        }
+
+        .pay-btn {
+            font-size: 18px;
+            padding: 10px 0;
+            width: 50%;
+            border: none;
+            border-radius: 8px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        .pay-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="kiosk-container">
+    <h3>
+        스탬프가 <span th:text="${savedStamp}"></span>개 적립되었습니다
+    </h3>
+    <form th:action="@{/coupon/select}" method="get">
+        <button type="submit" class="pay-btn">확인</button>
+    </form>
+</div>
+
+</body>
+
+</html>

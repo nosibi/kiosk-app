@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>관리자가 하루 주문 내역 확인하는 화면</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <style>
+        .kiosk-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+        }
+        .item-card {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        .item-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .item-table td {
+            padding: 6px 10px;
+        }
+        .pay-btn {
+            width: 150px;
+            height: 45px;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .back-btn {
+            position: absolute;
+            top: 20px;   /* 화면 위쪽에서 20px */
+            right: 20px; /* 화면 오른쪽에서 20px */
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="kiosk-container">
+    <!-- 관리자 모드 화면 복귀 버튼 -->
+    <a th:href="@{/admin/back}" class="btn btn-outline-primary back-btn">
+        관리자 화면으로
+    </a>
+    <h2 class="text-center mb-4" th:text="${today} + ' 주문 내역'"></h2>
+
+    <!-- 상품 반복 -->
+    <div th:each="order, stat : ${orderList}" class="item-card">
+        <table class="item-table">
+            <tr>
+                <td th:text="'주문 번호 : ' + ${order.getOrderNumber()}"></td>
+                <td th:if="${order.isTakeOut()}" th:text="포장"></td>
+            </tr>
+            <tr th:each="orderItem, stat : ${order.getOrderItemDTOList()}">
+                <td>
+                    <div th:text="${stat.count}+'번째 상품'"></div>
+                    <div th:text="'상품명 : ' + ${orderItem.itemName}"></div>
+                    <div th:text="'상품 가격 : ' + ${orderItem.itemPrice}"></div>
+                    <div th:text="'주문 수량 : ' + ${orderItem.quantity}"></div>
+                    <div th:if="${orderItem.addIce}" th:text="'얼음 추가'"></div>
+                    <div th:if="${orderItem.addShot}" th:text="'샷 추가'"></div>
+                    <div th:if="${orderItem.addSugar}" th:text="'설탕 추가'"></div>
+
+                    <hr th:if="${!stat.last}" style="border: 1px solid #ddd; margin: 10px 0;">
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- 새로고침 버튼 -->
+    <form th:action="@{/order/info}" method="get" class="text-center">
+        <button type="submit" class="btn btn-primary pay-btn">새로운 주문 확인</button>
+    </form>
+</div>
+
+</body>
+
+</html>
