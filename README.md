@@ -1,6 +1,8 @@
-# 키오스크
-## 1. 도메인
+# Java + Spring Boot 기반으로 MVC + Thymeleaf + JPA + DB를 포함한 키오스크 주문 시스템 구현
+## 1. 도메인 및 계층
 - admin, coupon, member, menu, order, receipt로 구성
+- 각 도메인은 Controller - Service - Repository로 구성(coupon 도메인은 Repository 계층 없음)
+- DTO 객체로 데이터 전달
 ## 2. 데이터 테이블
 - Menu, Member, Order, OrderItem, Receipt 엔티티를 정의하고 SpringData JPA를 사용하여 DB 테이블에 매칭
 - 각각의 엔티티는 Primary Key로 Id값을 필드로 가짐
@@ -37,7 +39,20 @@
 - 오류 페이지 화면(아래)
 ![Image](https://github.com/user-attachments/assets/c21368e0-ddbf-4a40-9179-5d54e9f49a6a)
 
-## 7. 구현 영상
+## 7. 입력값 검증
+- 상품 추가 시 DB에 이미 있는 상품일 경우 Service 계층에서 null값을 반환하여 BindingResult가 reject를 호출(GlobalErrors 호출 -> "이미 존재하는 상품입니다" 메시지 출력)
+- MenuRequestDTO에서 필드값에 에너테이션을 추가하여 입력값 검증(ex. 상품명 입력 필수, 가격 범위는 1000원 이상 6000원 이하 등)
+- 회원 등록 시 Service 계층에서 DB를 확인하여 이미 등록된 회원인 경우 null을 반환하고 Controller에서 "error" 모델을 뷰에 렌더링("이미 등록된 회원입니다" 메시지 출력)
+- OrderItemDTO, AdminRequestDTO 등 RequestDTO 객체마다 검증가능하도록 에너테이션 추가
+- 검증 오류 발생 시 해당 페이지 입력란 상단에 적색 경고문 출력이 되도록 구현
+
+## 8. 구현 영상
 - https://github.com/nosibi/kiosk-app/releases/tag/v1.0
 
-## 8. 보완할 점
+## 9. 미흡점 및 보완할 점
+- 테스트 코드 부재 -> 다음 프로젝트에서는 API마다 테스트 코드 추가 필요
+- 관리자 로그인 시 세션 + 인터셉터 + 로그인 화면 외에는 보안 대책이 미흡함 -> 비밀번호 암호화, CSRF, 권한 기반 접근 제어 등 인증/권한/보안 보강 필요(다음 프로젝트에서 적용)
+- 기획 단계에서 URL 규칙을 정하지 않아 컨트롤러 URL이 일관성 없이 설정되어 있음
+- 동시성 제어, 트랙잭션 처리, 대규모 주문 처리 등 실무형 복잡도 부재
+- 결제 모듈이 연동되어 있지 않아 결제 처리 구현이 안됨
+- 쿠폰, 스탬프 기능이 부실함 -> 쿠폰을 얼마나 사용할지, 몇 개를 보유하고 있는지 등의 세부적인 기능이 필요
