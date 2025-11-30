@@ -39,3 +39,5 @@
 
 ## 7. 구현 영상
 - https://github.com/nosibi/kiosk-app/releases/tag/v1.0
+
+## 8. 보완할 점
