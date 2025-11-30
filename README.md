@@ -38,4 +38,4 @@
 ![Image](https://github.com/user-attachments/assets/c21368e0-ddbf-4a40-9179-5d54e9f49a6a)
 
 ## 7. 구현 영상
-https://github.com/nosibi/kiosk-app/releases/tag/v1.0
+- https://github.com/nosibi/kiosk-app/releases/tag/v1.0
