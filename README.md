@@ -12,7 +12,7 @@
 - Order와 OrderItem은 1:N 연관관계(주문서에 주문한 상품 리스트 정보가 저장되기 때문)
 ## 4. UI
 - Thymeleaf, HTML, CSS를 사용하여 페이지 구성
-![Image](https://github.com/user-attachments/assets/c21368e0-ddbf-4a40-9179-5d54e9f49a6a)
+![Image](https://github.com/user-attachments/assets/d5a52590-62de-4032-87f1-f4de9349da44)
 ## 5. 기능
 ### 1) 고객
 - 상품 옵션, 수량을 선택하여 카트에 저장
@@ -35,4 +35,4 @@
 - 위 3가지 예외들은 RuntimeException을 상속받으며 GlobalExceptionHandler 클래스의 ExceptionHandler에서 일괄적으로 예외 처리
 - 예외 발생 시 예외 메시지를 Model에 담아 특정 뷰에 렌더링하는 방식으로 처리
 - 오류 페이지 화면(아래)
-![Image](https://github.com/user-attachments/assets/d5a52590-62de-4032-87f1-f4de9349da44)
+![Image](https://github.com/user-attachments/assets/c21368e0-ddbf-4a40-9179-5d54e9f49a6a)
