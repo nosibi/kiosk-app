@@ -36,3 +36,6 @@
 - 예외 발생 시 예외 메시지를 Model에 담아 특정 뷰에 렌더링하는 방식으로 처리
 - 오류 페이지 화면(아래)
 ![Image](https://github.com/user-attachments/assets/c21368e0-ddbf-4a40-9179-5d54e9f49a6a)
+
+## 7. 구현 영상
+https://github.com/nosibi/kiosk-app/releases/tag/v1.0
