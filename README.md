@@ -1,4 +1,4 @@
-# Java + Spring Boot 기반으로 MVC + Thymeleaf + JPA + DB를 포함한 키오스크 주문 시스템 구현
+# 키오스크 주문 시스템 구현
 ## 1. 도메인 및 계층
 - admin, coupon, member, menu, order, receipt로 구성
 - 각 도메인은 Controller - Service - Repository로 구성(coupon 도메인은 Repository 계층 없음)
